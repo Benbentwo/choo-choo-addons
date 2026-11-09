@@ -1,0 +1,6 @@
+{
+  "name": "choo-choo-addons",
+  "owner": { "name": "Benbentwo" },
+  "metadata": { "description": "Private add-ons for Choo Choo." },
+  "plugins": []
+}
