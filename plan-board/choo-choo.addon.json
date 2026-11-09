@@ -1,0 +1,85 @@
+{
+  "apiVersion": 1,
+  "name": "Plan board",
+  "description": "Split a big piece of work into tasks, draw what depends on what, and run each task as its own agent and pull request. A task starts when the ones it depends on are merged.",
+  "permissions": [
+    "repos:read",
+    "workspaces:read",
+    "workspaces:start",
+    "workspaces:message",
+    "workspaces:stop",
+    "prs:read",
+    "files:read",
+    "files:write",
+    "storage",
+    "notify",
+    "orchestrator:tools"
+  ],
+  "views": [
+    { "id": "plans", "slot": "repo", "title": "Plans", "entry": "ui/board.html" },
+    { "id": "task", "slot": "workspace", "title": "Plan", "entry": "ui/task.html" }
+  ],
+  "background": "ui/background.html",
+  "tools": [
+    {
+      "name": "plan_help",
+      "description": "How to write a plan: the plan file format with an example, and how to split work into tasks that agents can do side by side. Read this before the first plan_write.",
+      "readOnly": true
+    },
+    {
+      "name": "plan_list",
+      "description": "List the plans in this project, with how far each one is (tasks done, running, waiting on the person) and whether it is running.",
+      "readOnly": true
+    },
+    {
+      "name": "plan_read",
+      "description": "Read one plan: its Markdown, and for every task its status, what it is waiting on, its workspace id and its pull request.",
+      "readOnly": true,
+      "input": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "description": "The plan's name from plan_list, for example billing-v2." },
+          "repo_id": { "type": "string", "description": "The project's id. Only needed when you look after more than one project." }
+        },
+        "required": ["name"]
+      }
+    },
+    {
+      "name": "plan_write",
+      "description": "Create a plan or replace its text. The plan is saved as .choo-choo/plans/<name>.plan.md in the project and shows on the Plan board, where the person can read and edit it. Writing a plan starts nothing. Tasks that already started keep their workspaces as long as their ids stay the same. A plan with problems (unknown dependency, a circle, a duplicate id) is refused with the list of what to fix.",
+      "input": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "description": "A short file name: lowercase letters, digits and dashes, at most 32 characters. For example billing-v2." },
+          "markdown": { "type": "string", "description": "The whole plan file, in the format plan_help describes." },
+          "repo_id": { "type": "string", "description": "The project's id. Only needed when you look after more than one project." }
+        },
+        "required": ["name", "markdown"]
+      }
+    },
+    {
+      "name": "plan_start",
+      "description": "Run a plan: start an agent in its own workspace for every task that is ready, up to the plan's parallel limit, and keep starting tasks as the ones they depend on are merged. Ask the person before starting a plan they haven't seen.",
+      "input": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "description": "The plan's name from plan_list." },
+          "repo_id": { "type": "string", "description": "The project's id. Only needed when you look after more than one project." }
+        },
+        "required": ["name"]
+      }
+    },
+    {
+      "name": "plan_pause",
+      "description": "Stop a plan from starting more tasks. Agents that are already working carry on.",
+      "input": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string", "description": "The plan's name from plan_list." },
+          "repo_id": { "type": "string", "description": "The project's id. Only needed when you look after more than one project." }
+        },
+        "required": ["name"]
+      }
+    }
+  ]
+}

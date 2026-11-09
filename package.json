@@ -1,0 +1,8 @@
+{
+  "name": "choo-choo-addons",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test"
+  }
+}
