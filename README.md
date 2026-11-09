@@ -19,8 +19,12 @@ To have a project ask its team for an add-on, add this to the project's `choo-ch
 
 ## Add-ons
 
-None yet. The Plan board is first.
+| Add-on | What it does |
+|---|---|
+| [Plan board](plan-board/README.md) | Splits a big piece of work into tasks, draws what depends on what, and runs each task as its own agent and pull request. A task starts when the ones it depends on are merged. |
 
 ## Writing one
+
+`npm test` runs every add-on's tests.
 
 Each add-on is a folder with `.claude-plugin/plugin.json` and `choo-choo.addon.json`, listed in `.claude-plugin/marketplace.json`. The manifest, the sandbox and the `window.choo` API are described in the [author guide](https://github.com/Benbentwo/choo-choo/blob/main/docs/addon-api.md).

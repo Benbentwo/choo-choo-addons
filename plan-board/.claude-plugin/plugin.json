@@ -1,0 +1,6 @@
+{
+  "name": "plan-board",
+  "version": "0.1.0",
+  "description": "Split a big piece of work into tasks, draw what depends on what, and run each task as its own agent and pull request in Choo Choo.",
+  "keywords": ["choo-choo-addon"]
+}

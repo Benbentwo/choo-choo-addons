@@ -2,5 +2,12 @@
   "name": "choo-choo-addons",
   "owner": { "name": "Benbentwo" },
   "metadata": { "description": "Private add-ons for Choo Choo." },
-  "plugins": []
+  "plugins": [
+    {
+      "name": "plan-board",
+      "source": "./plan-board",
+      "description": "Split a big piece of work into tasks, draw what depends on what, and run each task as its own agent and pull request in Choo Choo.",
+      "keywords": ["choo-choo-addon"]
+    }
+  ]
 }
