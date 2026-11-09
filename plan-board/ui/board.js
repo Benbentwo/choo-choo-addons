@@ -66,7 +66,11 @@ async function act(fn) {
 
 const ask = (action, taskId, more) =>
   act(async () => {
-    if (taskId) app.asked.add(taskId)
+    if (taskId) {
+      app.asked.add(taskId)
+      // A request that changes nothing (the task was no longer ready, say) gets no answer: give the buttons back.
+      setTimeout(() => app.asked.delete(taskId) && render(), 8000)
+    }
     await request(app.repoId, app.name, action, { ...(taskId ? { taskId } : {}), ...more })
   })
 
