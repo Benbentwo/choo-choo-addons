@@ -1,6 +1,7 @@
 {
   "name": "choo-choo-addons",
   "private": true,
+  "license": "MIT",
   "type": "module",
   "scripts": {
     "test": "node --test"
