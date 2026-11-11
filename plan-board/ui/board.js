@@ -257,7 +257,7 @@ function panel(plan, task, status) {
   } else {
     if (st === 'ready' || (st === 'error' && !rec.ws)) buttons.push(h('button.primary', { disabled: asked || broken, onclick: () => ask('start', task.id) }, asked ? 'Starting…' : st === 'error' ? 'Try again' : 'Start'))
     if (st === 'waiting') buttons.push(h('button', { disabled: asked || broken, title: 'Start now, without what it depends on', onclick: () => ask('start', task.id, { force: true }) }, asked ? 'Starting…' : 'Start anyway'))
-    if (ws) buttons.push(h('button.primary', { onclick: () => act(() => choo.ui.openWorkspace(ws.id)) }, 'Open workspace'))
+    if (ws) buttons.push(h('button.primary', { title: 'Opens beside the board when Choo Choo has split panes', onclick: () => act(() => choo.ui.openWorkspace(ws.id, { beside: true })) }, 'Open workspace'))
     if (ws && (st === 'running' || st === 'approval')) buttons.push(h('button', { onclick: () => act(() => choo.workspaces.stop(ws.id)) }, 'Stop'))
     if (st === 'gone') buttons.push(h('button.primary', { disabled: asked || broken, onclick: () => ask('start', task.id) }, asked ? 'Starting…' : 'Start again'))
     if (st === 'done') buttons.push(h('button', { disabled: asked, onclick: () => ask('undone', task.id) }, 'Not done after all'))
